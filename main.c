@@ -18,7 +18,8 @@ static uint8_t st_ucMemPool[(MEM_POOL_BLOCK_SIZE * MEM_POOL_BLOCK_COUNT) + sizeo
 
 int main(void)
 {
-    size_t i = 0, j = 0, *pMem[256] = {0};
+    void *pMem[256] = {0};
+    size_t i = 0, j = 0;
 
     printf("memory pool test.\r\n");
 

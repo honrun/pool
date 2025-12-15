@@ -7,7 +7,7 @@
 
 int8_t cMemPoolCreate(MemPoolType *ptypePool, void *pvMem, size_t size, size_t count)
 {
-    size_t addr;
+    void *now;
 
     if((ptypePool == NULL) || (pvMem == NULL) || (size < sizeof(MemPoolType)) || (count < 1))
         return 1;
@@ -15,9 +15,9 @@ int8_t cMemPoolCreate(MemPoolType *ptypePool, void *pvMem, size_t size, size_t c
     ptypePool->next = ptypePool->prev = ptypePool;
 
     /* 分块，插入到空闲链表 */
-    for(addr = memPoolRoundUp((size_t)pvMem); count > 0; --count, addr += size)
+    for(now = (void *)memPoolRoundUp((size_t)pvMem); count > 0; --count, now += size)
     {
-        vMemPoolFree(ptypePool, (void *)addr);
+        vMemPoolFree(ptypePool, now);
     }
 
     return 0;
